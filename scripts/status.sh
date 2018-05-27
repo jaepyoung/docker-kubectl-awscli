@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 app=$1
 namespace=${2:=default}
