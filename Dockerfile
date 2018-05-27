@@ -1,7 +1,7 @@
 
 FROM python:2-alpine
 
-RUN apk update && apk add --no-cache ca-certificates curl openssl tar gpg
+RUN apk update && apk add --no-cache ca-certificates curl openssl tar gnupg
 RUN update-ca-certificates
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.9.3/bin/linux/amd64/kubectl && \
     chmod a+x ./kubectl && \
@@ -12,3 +12,4 @@ RUN curl -L https://github.com/shyiko/kubesec/releases/download/0.6.1/kubesec-0.
     chmod +x ./kubesec && \
     mv ./kubesec /usr/local/bin/kubesec
 RUN pip install awscli
+COPY ./scripts/status.sh /usr/local/bin
