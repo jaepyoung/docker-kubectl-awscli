@@ -30,22 +30,25 @@ else
     i=0
     while [ $i -le $x ]
     do
-        echo "checking rollout status"
-        status=`kubectl rollout status deploy/$app --namespace=$namespace --watch=false 2>&1`
+        echo "checking rollout status";
+        set +e
+        status=$({ kubectl rollout status deploy/$app --namespace=$namespace --watch=false 2>&1 })
+        set -e
+        
+        if [ $? -eq 1 ]; then
+            echo "Checking status failed. Status: $status";
+            exit 1;
+        fi
         
         if [ $i -eq $x ]; then
-            echo $status;
-            echo "Exiting due to timeout. The deployment for $app has probably failed!"
+            echo "Exiting due to timeout. The deployment for $app has probably failed! Status: $status"
             exit 1;
         elif [[ $status == *"successfull"* ]]; then
-            echo $status;
+            echo "Rollout successful. Status: $status";
             exit 0;
         elif [[ $status  == *"Waiting"* ]]; then
-            echo $status;
+            echo "Status is still waiting. Status: $status";
             ((i++));
-        elif [ $? -eq 1 ]; then
-            echo $status;
-            exit 1;
         fi
         sleep 10;
     done
