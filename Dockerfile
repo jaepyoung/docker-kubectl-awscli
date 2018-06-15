@@ -13,7 +13,7 @@ RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
   curl -L https://github.com/shyiko/kubesec/releases/download/0.6.1/kubesec-0.6.1-linux-amd64 -o kubesec && \
   chmod +x ./kubesec && \
   mv ./kubesec /usr/local/bin/kubesec && \
-  pip install aws cli && \
+  pip install awscli && \
   ./scripts/status.sh /usr/local/bin && \
   curl -sL https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq && \
   chmod a+x /usr/local/bin/jq
