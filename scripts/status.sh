@@ -48,7 +48,7 @@ else
             exit 0;
         elif [[ $status  == *"Waiting"* ]]; then
             echo "Status is still waiting. Status: $status";
-            ((i++));
+            i=$((i + 1));
         fi
         sleep 10;
     done
