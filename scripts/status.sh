@@ -24,13 +24,14 @@ else
     fi
 
     declare -i x
-    x=$(( $progressSeconds/10 ))
+    x=$((progressSeconds / 10))
 
     echo "Setting timeout: $x runs"
     i=0
     while [ $i -le $x ]
     do
-        echo "checking rollout status";
+        echo "checking rollout status [${i}]";
+        i=$((i + 1));
         set +e
         status=$(kubectl rollout status deploy/$app --namespace=$namespace --watch=false 2>&1)
         set -e
@@ -40,15 +41,17 @@ else
             exit 1;
         fi
 
-        if [ $i -eq $x ]; then
+        if [ $i -ge $x ]; then
             echo "Exiting due to timeout. The deployment for $app has probably failed! Status: $status"
             exit 1;
         elif [[ $status == *"successfull"* ]]; then
             echo "Rollout successful. Status: $status";
             exit 0;
-        elif [[ $status  == *"Waiting"* ]]; then
+        elif [[ $status == *"Waiting"* ]]; then
             echo "Status is still waiting. Status: $status";
-            i=$((i + 1));
+        elif [[ $status == *"error"* ]]; then
+            echo "Deployment for ${app} has failed: ${status}";
+            exit 1;
         fi
         sleep 10;
     done
