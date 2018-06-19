@@ -36,7 +36,7 @@ else
         status=$(kubectl rollout status deploy/$app --namespace=$namespace --watch=false 2>&1)
         set -e
 
-        if [ $? -eq 1 ]; then
+        if [ $? -ne 0 ]; then
             echo "Checking status failed. Status: $status";
             exit 1;
         fi
