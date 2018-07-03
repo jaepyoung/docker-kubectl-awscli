@@ -2,7 +2,7 @@
 FROM python:2-alpine
 
 RUN apk update && \
-  apk add --no-cache ca-certificates curl openssl tar gnupg bash && \
+  apk add --no-cache ca-certificates curl openssl tar gnupg bash postgresql-client mysql-client && \
   update-ca-certificates && \
   curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.9.3/bin/linux/amd64/kubectl && \
   chmod a+x ./kubectl && \
