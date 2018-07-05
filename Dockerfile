@@ -18,4 +18,5 @@ RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
   chmod a+x /usr/local/bin/jq && \
   curl -sL https://github.com/mikefarah/yq/releases/download/1.15.0/yq_linux_amd64 -o /usr/local/bin/yq && \
   chmod a+x /usr/local/bin/yq
-COPY ./scripts/status.sh /usr/local/bin
+
+COPY ./scripts/*.sh /usr/local/bin/
