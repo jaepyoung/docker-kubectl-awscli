@@ -23,6 +23,7 @@ else
         i=$((i + 1));
         set +e
         status=$(kubectl rollout status deploy/$app --namespace=$namespace --watch=false 2>&1)
+        code=$?;
         set -e
         sleep 10;
     done
