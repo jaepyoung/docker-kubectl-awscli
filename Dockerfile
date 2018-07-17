@@ -11,6 +11,7 @@ RUN apk update && \
   postgresql-client \
   mysql-client \
   busybox-extras \
+  xz \
   && update-ca-certificates
 
 # Install kubectl
