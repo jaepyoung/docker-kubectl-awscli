@@ -10,6 +10,7 @@ RUN apk update && \
   bash \
   postgresql-client \
   mysql-client \
+  grep \
   busybox-extras \
   xz \
   && update-ca-certificates
