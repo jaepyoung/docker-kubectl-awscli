@@ -55,3 +55,6 @@ RUN curl -sL https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x
   && tar xvf shellcheck-stable.tar.xz \
   && mv ./shellcheck-stable/shellcheck /usr/local/bin/shellcheck \
   && chmod a+x /usr/local/bin/shellcheck
+
+# Install sops
+RUN curl -sL https://github.com/mozilla/sops/releases/download/3.0.5/sops-3.0.5.linux -o /usr/local/bin/sops && chmod a+x /usr/local/bin/sops
