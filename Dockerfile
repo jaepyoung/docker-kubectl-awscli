@@ -7,13 +7,14 @@ RUN apk update && \
   openssl \
   tar \
   gnupg \
-  bash \
+  bash=4.4.19-rc1 \
   postgresql-client \
   mysql-client \
   grep \
   busybox-extras \
   xz \
-  && update-ca-certificates
+  && update-ca-certificates \
+  && rm /usr/bin/[[
 
 # Install kubectl
 RUN curl -sL https://storage.googleapis.com/kubernetes-release/release/v1.9.3/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && chmod a+x /usr/local/bin/kubectl
