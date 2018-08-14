@@ -7,7 +7,7 @@ RUN apk update && \
   openssl \
   tar \
   gnupg \
-  bash=4.4.19-rc1 \
+  bash=4.4.19-r1 \
   postgresql-client \
   mysql-client \
   grep \
