@@ -17,7 +17,10 @@ RUN apk update && \
   && rm /usr/bin/[[
 
 # Install kubectl
-RUN curl -sL https://storage.googleapis.com/kubernetes-release/release/v1.9.3/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && chmod a+x /usr/local/bin/kubectl
+RUN curl -sL https://storage.googleapis.com/kubernetes-release/release/v1.11.2/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && chmod a+x /usr/local/bin/kubectl
+
+# Install aws-iam-authenticator
+RUN curl -sL https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.3.0/heptio-authenticator-aws_0.3.0_linux_amd64 -o /usr/local/bin/aws-iam-authenticator && chmod a+x /usr/local/bin/aws-iam-authenticator
 
 # Install Kubesec
 # See https://stackoverflow.com/questions/34729748/installed-go-binary-not-found-in-path-on-alpine-linux-docker/35613430
