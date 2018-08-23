@@ -62,3 +62,6 @@ RUN curl -sL https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x
 
 # Install sops
 RUN curl -sL https://github.com/mozilla/sops/releases/download/3.0.5/sops-3.0.5.linux -o /usr/local/bin/sops && chmod a+x /usr/local/bin/sops
+
+# Install kustomize
+RUN curl -sL https://github.com/kubernetes-sigs/kustomize/releases/download/v1.0.6/kustomize_1.0.6_linux_amd64 -o /usr/local/bin/kustomize && chmod a+x /usr/local/bin/kustomize
