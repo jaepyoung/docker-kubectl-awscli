@@ -6,6 +6,7 @@ RUN apk update && \
   curl \
   openssl \
   docker\
+  build-base\
   openrc\
   git\
   tar \
