@@ -5,6 +5,9 @@ RUN apk update && \
   ca-certificates \
   curl \
   openssl \
+  docker\
+  openrc\
+  git\
   tar \
   gnupg \
   bash \
@@ -16,16 +19,18 @@ RUN apk update && \
   && update-ca-certificates \
   && rm /usr/bin/[[
 
+RUN rc-update add docker boot
+
 # Install kubectl
 RUN curl -sL https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && chmod a+x /usr/local/bin/kubectl
 
 # Install aws-iam-authenticator
-RUN curl -sL https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/aws-iam-authenticator -o /usr/local/bin/aws-iam-authenticator && chmod a+x /usr/local/bin/aws-iam-authenticator
+RUN curl -sL https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator -o /usr/local/bin/aws-iam-authenticator && chmod a+x /usr/local/bin/aws-iam-authenticator
 
 # Install Kubesec
 # See https://stackoverflow.com/questions/34729748/installed-go-binary-not-found-in-path-on-alpine-linux-docker/35613430
 RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
-RUN curl -sL https://github.com/shyiko/kubesec/releases/download/0.6.1/kubesec-0.6.1-linux-amd64 -o /usr/local/bin/kubesec && chmod a+x /usr/local/bin/kubesec
+RUN curl -sL https://github.com/shyiko/kubesec/releases/download/0.9.2/kubesec-0.9.2-linux-amd64 -o /usr/local/bin/kubesec && chmod a+x /usr/local/bin/kubesec
 
 # Install awscli
 RUN pip install awscli
@@ -65,7 +70,6 @@ RUN curl -sL https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x
   && chmod a+x /usr/local/bin/shellcheck
 
 # Install sops
-RUN curl -sL https://github.com/mozilla/sops/releases/download/3.0.5/sops-3.0.5.linux -o /usr/local/bin/sops && chmod a+x /usr/local/bin/sops
+RUN curl -sL https://github.com/mozilla/sops/releases/download/3.4.0/sops-3.4.0.linux -o /usr/local/bin/sops && chmod a+x /usr/local/bin/sops
 
-RUN apk add --update docker openrc
-RUN rc-update add docker boot
+
