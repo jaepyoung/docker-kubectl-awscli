@@ -31,13 +31,13 @@ RUN curl -sL https://github.com/shyiko/kubesec/releases/download/0.6.1/kubesec-0
 RUN pip install awscli
 
 # Install jq
-RUN curl -sL https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq && chmod a+x /usr/local/bin/jq
+RUN curl -sL https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -o /usr/local/bin/jq && chmod a+x /usr/local/bin/jq
 
 # Install yq
-RUN curl -sL https://github.com/mikefarah/yq/releases/download/1.15.0/yq_linux_amd64 -o /usr/local/bin/yq && chmod a+x /usr/local/bin/yq
+RUN curl -sL https://github.com/mikefarah/yq/releases/download/2.4.1/yq_linux_amd64 -o /usr/local/bin/yq && chmod a+x /usr/local/bin/yq
 
 # Install helm
-RUN curl -sL https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz -o helm.tar.gz \
+RUN curl -sL https://storage.googleapis.com/kubernetes-helm/helm-v2.16.0-linux-amd64.tar.gz -o helm.tar.gz \
   && tar xzf helm.tar.gz \
   && mv ./linux-amd64/helm /usr/local/bin/helm \
   && chmod a+x /usr/local/bin/helm
@@ -47,6 +47,10 @@ RUN curl -sL https://github.com/roboll/helmfile/releases/download/v0.20.0/helmfi
 
 # Install promtool
 COPY --from=quay.io/prometheus/prometheus:latest /bin/promtool /usr/local/bin/promtool
+
+# Install azurecli
+
+
 
 # Install scripts
 COPY ./scripts/*.sh /usr/local/bin/
@@ -62,3 +66,6 @@ RUN curl -sL https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x
 
 # Install sops
 RUN curl -sL https://github.com/mozilla/sops/releases/download/3.0.5/sops-3.0.5.linux -o /usr/local/bin/sops && chmod a+x /usr/local/bin/sops
+
+RUN apk add --update docker openrc
+RUN rc-update add docker boot
