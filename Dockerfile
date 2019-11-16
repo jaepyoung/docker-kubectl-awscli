@@ -54,9 +54,11 @@ RUN curl -sL https://github.com/roboll/helmfile/releases/download/v0.20.0/helmfi
 # Install promtool
 COPY --from=quay.io/prometheus/prometheus:latest /bin/promtool /usr/local/bin/promtool
 
-# Install azurecli
-
-
+# Install vault cli
+RUN curl -sL https://releases.hashicorp.com/vault/1.3.0/vault_1.3.0_linux_amd64.zip  -o vault.zip \
+  && unzip vault.zip \
+  && chmod a+x vault \
+  && mv vault /usr/local/bin/vault
 
 # Install scripts
 COPY ./scripts/*.sh /usr/local/bin/
