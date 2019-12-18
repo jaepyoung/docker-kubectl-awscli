@@ -17,8 +17,11 @@ RUN apk update && \
   grep \
   busybox-extras \
   xz \
+  nodejs \
+  npm \
   && update-ca-certificates \
   && rm /usr/bin/[[
+
 
 RUN rc-update add docker boot
 
@@ -66,6 +69,8 @@ COPY ./scripts/*.sh /usr/local/bin/
 # Install shfmt
 COPY --from=jamesmstone/shfmt:latest /shfmt /usr/local/bin/shfmt
 
+RUN npm install yarn -g
+RUN npm install gatsby-cli -g
 # Install shellcheck
 RUN curl -sL https://storage.googleapis.com/shellcheck/shellcheck-stable.linux.x86_64.tar.xz -o shellcheck-stable.tar.xz \
   && tar xvf shellcheck-stable.tar.xz \
